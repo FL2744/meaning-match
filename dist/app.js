@@ -1,4 +1,4 @@
-import {LEVELS,getLevel} from './levels.js';
+import {LEVELS} from './levels.js';
 import {LANGUAGES,getLanguage} from './languages.js';
 import {makeQuestion,grade,winners} from './engine.js';
 const $=id=>document.getElementById(id);
@@ -14,12 +14,10 @@ $('keyForm').onsubmit=e=>{e.preventDefault();key=$('key').value.trim();if(!key)r
 
 for(const language of LANGUAGES){const option=document.createElement('option');option.value=language.name;option.textContent=language.name;$('language').append(option);}
 $('language').value='French';
-function updateLanguage(){const spec=getLanguage($('language').value);$('languagePair').textContent=`${spec.name.toUpperCase()} → ENGLISH`;$('greeting').textContent=spec.greeting;$('greeting').lang=spec.code;$('greeting').dir=spec.direction;$('classicalNote').hidden=!['grc','la'].includes(spec.code);}
+function updateLanguage(){const spec=getLanguage($('language').value);$('languagePair').textContent=`${spec.name.toUpperCase()} → ENGLISH`;$('greeting').textContent=spec.greeting;$('greeting').lang=spec.code;$('greeting').dir=spec.direction;}
 $('language').onchange=()=>{if(busy)return;question=null;startAfterConnect=false;$('round').hidden=true;$('welcome').hidden=false;$('reveal').hidden=true;$('options').replaceChildren();$('sourceText').textContent='';$('error').hidden=true;$('retry').hidden=true;updateLanguage();$('status').textContent=`Ready for ${$('language').value}. Your session score is kept. Select Let’s play for a new round.`;};
 updateLanguage();
 
 for(const [code,spec] of Object.entries(LEVELS)){const option=document.createElement('option');option.value=code;option.textContent=`${code} · ${spec.label}`;$('level').append(option);}
 $('level').value='B1';
-function updateLevel(){const spec=getLevel($('level').value);$('levelTheme').textContent=spec.theme;$('levelTopics').replaceChildren(...spec.topics.map(topic=>{const li=document.createElement('li');const name=document.createElement('strong');name.textContent=topic.name;li.append(name,document.createTextNode(' — '+topic.details));return li;}));}
-$('level').onchange=()=>{updateLevel();$('status').textContent=`${$('level').value} selected for your next round. The current round and session score are unchanged.`;};
-updateLevel();
+$('level').onchange=()=>{$('status').textContent=`${$('level').value} selected for your next round. The current round and session score are unchanged.`;};
