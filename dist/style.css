@@ -10,3 +10,6 @@ header{flex-wrap:wrap}.brand{white-space:nowrap}.headerNote{white-space:nowrap}
 @media(max-width:1250px){.headerNote{display:none}}
 @media(max-width:900px){header{gap:16px}.headerActions{gap:35px;flex-wrap:wrap}}
 @media(max-width:600px){.headerActions{flex-basis:100%;gap:35px}.headerPickers{order:1;flex-basis:100%}.headerPickers select{flex:1;max-width:none;min-width:0}}
+
+.headerPickers #level{width:230px;max-width:none;min-width:230px;flex-shrink:0}
+@media(max-width:600px){.headerPickers{flex-wrap:wrap}.headerPickers #level{flex:1 0 230px}}
